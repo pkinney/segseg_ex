@@ -66,6 +66,13 @@
       </h1>
 
       
+        <section id="moduledoc" class="docstring">
+          <p>Calculates the type of relationship between two line segments <strong>AB</strong> and
+<strong>CD</strong> and the location of intersection (if applicable).</p>
+<p><img src="http://i.imgbox.com/hO3zHfNR.png" alt="Classification of segment-segment intersection"/></p>
+
+        </section>
+      
 
       
         <section id="summary" class="details-list">
@@ -87,8 +94,8 @@
     <a href="#intersection/4">intersection(a, b, c, d)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Calculates the type of relationship between two line segments <strong>AB</strong> and
-<strong>CD</strong> and the location of intersection (if applicable)</p>
+    <div class="summary-synopsis"><p>Returns a tuple representing the segment-segment intersectoin with three
+elements</p>
 </div>
   
 </div>
@@ -123,11 +130,8 @@
   </div>
   
   <section class="docstring">
-    <p>Calculates the type of relationship between two line segments <strong>AB</strong> and
-<strong>CD</strong> and the location of intersection (if applicable).</p>
-<p><img src="http://i.imgbox.com/hO3zHfNR.png" alt="Classification of segment-segment intersection"/></p>
-<p>The function <code class="inline">SegSeg.intersection</code> calculates the
-intersection between two line segments and returns a tuple with three elements:</p>
+    <p>Returns a tuple representing the segment-segment intersectoin with three
+elements:</p>
 <ol>
 <li>Boolean <code class="inline">true</code> if the two segments intersect at all, <code class="inline">false</code> if they are
    disjoint
@@ -140,8 +144,7 @@ intersection between two line segments and returns a tuple with three elements:<
 </li>
 <li><code class="inline">:vertex</code> - the segments intersect at an endpoint of one or both segments
 </li>
-<li><p><code class="inline">:edge</code> - the segments are parallel, collinear, and overlap for some non-zero</p>
-<pre><code class="elixir">    length</code></pre>
+<li><code class="inline">:edge</code> - the segments are parallel, collinear, and overlap for some non-zero length
 </li>
 <li><code class="inline">:disjoint</code> - no intersection exists between the two segments
 </li>
