@@ -5,7 +5,7 @@
 
 Calculates intersection type and location for two line segments.
 
-![Classification of segment-segment intersection](http://i.imgbox.com/7fmvvKFt.png)
+![Classification of segment-segment intersection](http://i.imgbox.com/0vw9IfOP.png)
 
 ## Installation
 
