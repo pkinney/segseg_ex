@@ -3,7 +3,7 @@ defmodule SegSeg do
   Calculates the type of relationship between two line segments **AB** and
   **CD** and the location of intersection (if applicable).
 
-  ![Classification of segment-segment intersection](http://i.imgbox.com/7fmvvKFt.png)
+  ![Classification of segment-segment intersection](http://i.imgbox.com/hO3zHfNR.png)
 
   The function `SegSeg.intersection` calculates the
   intersection between two line segments and returns a tuple with three elements:
