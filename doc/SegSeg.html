@@ -1,0 +1,192 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.11.4">
+    <title>SegSeg – seg_seg v0.0.1</title>
+    <link rel="stylesheet" href="dist/app-1e374caa3d.css" />
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="modules">
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+  <button class="sidebar-toggle">
+    <i class="icon-menu"></i>
+  </button>
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        seg_seg
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.0.1
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">seg_seg v0.0.1</small>
+        SegSeg
+        
+        
+      </h1>
+
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <i class="icon-link"></i>
+            </a>
+            Summary
+          </h1>
+          
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#intersection/4">intersection(a, b, c, d)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Calculates the type of relationship between two line segments <strong>AB</strong> and
+<strong>CD</strong> and the location of intersection (if applicable)</p>
+</div>
+  
+</div>
+
+  </div>
+
+
+          
+
+          
+
+        </section>
+      
+
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <i class="icon-link"></i>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="intersection/4">
+  <div class="detail-header">
+    <a href="#intersection/4" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">intersection(a, b, c, d)</span>
+      
+  </div>
+  
+  <section class="docstring">
+    <p>Calculates the type of relationship between two line segments <strong>AB</strong> and
+<strong>CD</strong> and the location of intersection (if applicable).</p>
+<p><img src="http://i.imgbox.com/7fmvvKFt.png" alt="Classification of segment-segment intersection"/></p>
+<p>The function <code class="inline">SegSeg.intersection</code> calculates the
+intersection between two line segments and returns a tuple with three elements:</p>
+<ol>
+<li>Boolean <code class="inline">true</code> if the two segments intersect at all, <code class="inline">false</code> if they are
+   disjoint
+</li>
+<li>An atom representing the classification of the intersection:
+</li>
+</ol>
+<ul>
+<li><code class="inline">:interior</code> - the segments intersect at a point that is interior to both
+</li>
+<li><code class="inline">:vertex</code> - the segments intersect at an endpoint of one or both segments
+</li>
+<li><p><code class="inline">:edge</code> - the segments are parallel, collinear, and overlap for some non-zero</p>
+<pre><code class="elixir">    length</code></pre>
+</li>
+<li><code class="inline">:disjoint</code> - no intersection exists between the two segments
+</li>
+</ul>
+<ol>
+<li>A tuple <code class="inline">{x, y}</code> representing the point of intersection if the intersection
+   is classified as <code class="inline">:interior</code> or <code class="inline">:vertex</code>, otherwise <code class="inline">nil</code>.
+</li>
+</ol>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; SegSeg.intersection({2, -3}, {4, -1}, {2, -1}, {4, -3})
+{true, :interior, {3.0, -2.0}}
+iex&gt; SegSeg.intersection({-1, 3}, {2, 4}, {-1, 4}, {-1, 5})
+{false, :disjoint, nil}
+iex&gt; SegSeg.intersection({-1, 0}, {0, 2}, {0, 2}, {1, -1})
+{true, :vertex, {0, 2}}
+iex&gt; SegSeg.intersection({-1, 0}, {0, 2}, {1, 4}, {-1, 0})
+{true, :edge, nil}</code></pre>
+
+  </section>
+</div>
+
+        </section>
+      
+
+      
+
+      
+        <footer class="footer">
+      <p>
+        <span class="line">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.11.4),
+        </span>
+        <span class="line">
+          designed by
+          <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+      </p>
+      <button class="night-mode-toggle" />
+    </footer>
+  </div>
+</section>
+</div>
+  <script src="dist/app-6d2e071366.js"></script>
+  </body>
+</html>
+
