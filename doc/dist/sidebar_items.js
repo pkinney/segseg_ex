@@ -1,1 +1,0 @@
-sidebarNodes={"exceptions":[],"extras":[{"id":"api-reference","title":"API Reference","headers":[]}],"modules":[{"id":"SegSeg","title":"SegSeg","functions":[{"id":"intersection/4","anchor":"intersection/4"}]}],"protocols":[]}
