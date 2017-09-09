@@ -7,6 +7,13 @@ defmodule SegSeg do
 
   """
 
+  @type point :: {number, number}
+  @type intersection_type :: :interior
+                           | :disjoint
+                           | :edge
+                           | :vertex
+  @type intersection_result :: {boolean, intersection_type, point | nil}
+
   @doc ~S"""
   Returns a tuple representing the segment-segment intersectoin with three
   elements:
@@ -32,6 +39,7 @@ defmodule SegSeg do
       iex> SegSeg.intersection({-1, 0}, {0, 2}, {1, 4}, {-1, 0})
       {true, :edge, nil}
   """
+  @spec intersection(point, point, point, point) :: intersection_result
   def intersection(a, b, c, d) do
     cond do
       !envelope_check(a, b, c, d) -> {false, :disjoint, nil}
@@ -39,6 +47,7 @@ defmodule SegSeg do
     end
   end
 
+  @spec do_intersection(point, point, point, point, number) :: intersection_result
   defp do_intersection(a, b, c, d, denom) when denom == 0, do: parallel_int(a, b, c, d)
   defp do_intersection(a, _, c, d, _) when a == c or a == d, do: {true, :vertex, a}
   defp do_intersection(_, b, c, d, _) when b == c or b == d, do: {true, :vertex, b}
@@ -62,10 +71,12 @@ defmodule SegSeg do
     end
   end
 
+  @spec calc_denom(point, point, point, point) :: number
   defp calc_denom({ax, ay}, {bx, by}, {cx, cy}, {dx, dy}) do
     ax * (dy - cy) + bx * (cy - dy) + dx * (by - ay) + cx * (ay - by)
   end
 
+  @spec envelope_check(point, point, point, point) :: boolean
   defp envelope_check({ax, ay}, {bx, by}, {cx, cy}, {dx, dy}) do
     cond do
       (ax < cx && ax < dx && bx < cx && bx < dx) -> false
@@ -77,6 +88,7 @@ defmodule SegSeg do
     end
   end
 
+  @spec parallel_int(point, point, point, point) :: intersection_result
   defp parallel_int(a, b, c, d) do
     cond do
       !collinear(a, b, c) -> {false, :disjoint, nil}
@@ -93,14 +105,17 @@ defmodule SegSeg do
     end
   end
 
+  @spec collinear_not_between(point, point, point) :: boolean
   defp collinear_not_between(a, b, c) do
      collinear(a, b, c) && !between(a, b, c)
   end
 
+  @spec collinear(point, point, point) :: boolean
   defp collinear({ax, ay}, {bx, by}, {cx, cy}) do
     Vector.cross({ax - cx, ay - cy}, {bx - cx, by - cy}) == {0, 0, 0}
   end
 
+  @spec between(point, point, point) :: boolean
   defp between({ax, ay}, {bx, by}, {_, py}) when ax == bx, do: ((ay <= py) && (py <= by)) || ((ay >= py) && (py >= by))
   defp between({ax, _}, {bx, _}, {px, _}), do: ((ax <= px) && (px <= bx)) || ((ax >= px) && (px >= bx))
 end

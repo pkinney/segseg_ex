@@ -3,26 +3,30 @@ defmodule SegSeg.Mixfile do
 
   def project do
     [app: :seg_seg,
-     version: "0.1.0",
+     version: "0.1.1",
      elixir: "~> 1.2",
-     description: description,
-     package: package,
+     description: description(),
+     package: package(),
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      test_coverage: [tool: ExCoveralls],
-     deps: deps]
+     preferred_cli_env: [coveralls: :test],
+     dialyzer: [plt_add_apps: [:poison, :mix]],
+     deps: deps()]
   end
 
   def application do
-    [applications: [:logger]]
+    [applications: [:logger, :vector]]
   end
 
   defp deps do
     [
-      {:vector, "~> 0.2.1"},
-      {:earmark, "~> 0.1", only: :dev},
-      {:ex_doc, "~> 0.11", only: :dev},
-      {:excoveralls, "~> 0.4", only: :test}
+      {:vector, "~> 1.0"},
+      {:earmark, "~> 1.0", only: :dev},
+      {:ex_doc, "~> 0.16", only: :dev},
+      {:excoveralls, "~> 0.4", only: :test},
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 0.4", only: [:dev], runtime: false}
     ]
   end
 
