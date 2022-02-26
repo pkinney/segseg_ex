@@ -26,9 +26,10 @@ defmodule DisjointTest do
 
   test "all the disjoint" do
     for {ax, ay} <- @segments, {bx, by} <- @segments do
-      cond do
-        ax == bx && ay == by -> assert {true, :edge, nil} == SegSegTest.permutations(ax, ay, bx, by)
-        true -> assert {false, :disjoint, nil} == SegSegTest.permutations(ax, ay, bx, by)
+      if ax == bx && ay == by do
+        assert {true, :edge, nil} == SegSegTest.permutations(ax, ay, bx, by)
+      else
+        assert {false, :disjoint, nil} == SegSegTest.permutations(ax, ay, bx, by)
       end
     end
   end
