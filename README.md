@@ -2,6 +2,8 @@
 
 ![Build Status](https://github.com/pkinney/segseg_ex/actions/workflows/ci.yaml/badge.svg)
 [![Hex.pm](https://img.shields.io/hexpm/v/seg_seg.svg)](https://hex.pm/packages/seg_seg)
+[![Documentation](https://img.shields.io/badge/documentation-gray)](https://hexdocs.pm/seg_seg)
+
 
 Calculates intersection type and location for two line segments.
 

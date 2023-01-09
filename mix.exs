@@ -4,7 +4,7 @@ defmodule SegSeg.Mixfile do
   def project do
     [
       app: :seg_seg,
-      version: "1.0.0-rc.1",
+      version: "1.0.0",
       elixir: "~> 1.2",
       description: description(),
       package: package(),
@@ -29,13 +29,13 @@ defmodule SegSeg.Mixfile do
       {:ex_doc, "~> 0.16", only: :dev},
       {:excoveralls, "~> 0.4", only: :test},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 0.4", only: [:dev], runtime: false}
+      {:dialyxir, "~> 1.2", only: [:dev], runtime: false}
     ]
   end
 
   defp description do
     """
-    Segment-Segment intersection piont and classification
+    Segment-Segment intersection point and classification
     """
   end
 
