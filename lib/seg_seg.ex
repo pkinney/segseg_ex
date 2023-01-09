@@ -15,8 +15,9 @@ defmodule SegSeg do
           | :vertex
   @type intersection_result :: {boolean, intersection_type, point | nil}
 
-  # When the `strict` option is passed as `false`, certain comparisons are broadened
-  # based on an epsilon value.  This value is defined as the smaller of the distances
+  # When the `epsilon` option is passed as `true` or a number, certain comparisons are broadened
+  # based on an epsilon value. 
+  # If `true` is passed, the eps value is defined as the smaller of the distances
   # of each segment multiplied by the `@eps_factor` below.
   @eps_factor 0.000000001
 
@@ -37,16 +38,16 @@ defmodule SegSeg do
   ## Float Precision Issues
 
   It is possible that floating point math imprecision can cause incorrect results for
-  certain inputs.  In situations where this may cause issues, a `strict` options is
-  available that compares all values with a very small `epsilon` based on the minimum
-  of the lengths of the provided segment times a very small number (currently 0.0000000001).
+  certain inputs.  In situations where this may cause issues, an `epsilon` options is
+  available.  When set to `true` intersection comparisons are made with a very small `epsilon` based on the minimum
+  of the lengths of the provided segment times a very small number (currently 0.0000000001). `epsilon` can also be set to a specific number that will be used as the epsilon value.
   This eliminates most rounding error, but of course could cause false results in certain
   situations. This currently only effects `:vertex` results but might be expanded to `:edge`
   in the future.
 
   ```elixir
   SegSeg.intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}) #=> {true, :interior, {4.0, 6.999999999999998}}
-  SegSeg.intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, strict: false) #=> {true, :vertex, {4, 7}}
+  SegSeg.intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, epsilon: true) #=> {true, :vertex, {4, 7}}
   ```
 
   ## Examples
@@ -59,8 +60,12 @@ defmodule SegSeg do
       {true, :vertex, {0, 2}}
       iex> SegSeg.intersection({-1, 0}, {0, 2}, {1, 4}, {-1, 0})
       {true, :edge, nil}
-      iex> SegSeg.intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, strict: false)
+      iex> SegSeg.intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, epsilon: true)
       {true, :vertex, {4, 7}}
+
+      # A intersection that fails the specified epsilon
+      iex> SegSeg.intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, epsilon: 0.00000000000000000001)
+      {true, :interior, {4.0, 6.999999999999998}}
   """
   @spec intersection(point, point, point, point, keyword()) :: intersection_result
   def intersection(a, b, c, d, options \\ []) do
@@ -119,14 +124,19 @@ defmodule SegSeg do
     end
   end
 
-  defp calc_eps({ax, ay}, {bx, by}, {cx, cy}, {dx, dy}, options) do
-    if Keyword.get(options, :strict, true) do
-      0.0
-    else
-      ab_dist = (ax - bx) * (ax - bx) + (ay - by) * (ay - by)
-      cd_dist = (cx - dx) * (cx - dx) + (cy - dy) * (cy - dy)
-      :math.sqrt(min(ab_dist, cd_dist)) * @eps_factor
-    end
+  defp calc_eps(a, b, c, d, options) do
+    eps =
+      case Keyword.get(options, :epsilon, false) do
+        false -> 0.0
+        true -> eps_factor(a, b, c, d)
+        num when is_number(num) -> num
+      end
+  end
+
+  defp eps_factor({ax, ay}, {bx, by}, {cx, cy}, {dx, dy}) do
+    ab_dist = (ax - bx) * (ax - bx) + (ay - by) * (ay - by)
+    cd_dist = (cx - dx) * (cx - dx) + (cy - dy) * (cy - dy)
+    :math.sqrt(min(ab_dist, cd_dist)) * @eps_factor
   end
 
   defp calc_denom({ax, ay}, {bx, by}, {cx, cy}, {dx, dy}) do

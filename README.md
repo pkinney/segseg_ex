@@ -46,16 +46,11 @@ SegSeg.intersection({-1, 0}, {0, 2}, {1, 4}, {-1, 0}) #=> {true, :edge, nil}
 
 ## Float Precision Issues
 
-It is possible that floating point math imprecision can cause incorrect results for
-certain inputs. In situations where this may cause issues, a `strict` options is
-available that compares all values with a very small `epsilon` based on the minimum
-of the lengths of the provided segment times a very small number (currently 0.0000000001).
-This eliminates most rounding error, but of course could cause false results in certain
-situations.
+It is possible that floating point math imprecision can cause incorrect results for certain inputs.  In situations where this may cause issues, an `epsilon` options is available.  When set to `true` intersection comparisons are made with a very small `epsilon` based on the minimum of the lengths of the provided segment times a very small number (currently 0.0000000001). `epsilon` can also be set to a specific number that will be used as the epsilon value. This eliminates most rounding error, but of course could cause false results in certain situations. This currently only effects `:vertex` results but might be expanded to `:edge` in the future.
 
 ```elixir
 SegSeg.intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}) #=> {true, :interior, {4.0, 6.999999999999998}}
-SegSeg.intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, strict: false) #=> {true, :vertex, {4, 7}}
+SegSeg.intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, epsilon: true) #=> {true, :vertex, {4, 7}}
 ```
 
 ## Tests

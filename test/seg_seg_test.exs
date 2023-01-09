@@ -18,14 +18,14 @@ defmodule SegSegTest do
     assert {true, :vertex, {20, 20}} = permutations({20, 20}, {80, 140}, {20, 20}, {20, 180})
   end
 
-  test "vertex (non-strict mode)" do
+  test "vertex (epsilon mode)" do
     # This is a known-bad set of inputs that produce rounding error and return incorrect results
-    # only when strict mode is enabled.
+    # only when an epsilon is given.
     assert {true, :interior, _} =
-             intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, strict: true)
+             intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, epsilon: false)
 
     assert {true, :vertex, {4, 7}} =
-             intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, strict: false)
+             intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, epsilon: true)
   end
 
   test "edge" do
@@ -61,14 +61,14 @@ defmodule SegSegTest do
     assert result == intersection(d, c, a, b)
     assert result == intersection(c, d, b, a)
     assert result == intersection(d, c, b, a)
-    assert result == intersection(a, b, c, d, strict: false)
-    assert result == intersection(b, a, c, d, strict: false)
-    assert result == intersection(a, b, d, c, strict: false)
-    assert result == intersection(b, a, d, c, strict: false)
-    assert result == intersection(c, d, a, b, strict: false)
-    assert result == intersection(d, c, a, b, strict: false)
-    assert result == intersection(c, d, b, a, strict: false)
-    assert result == intersection(d, c, b, a, strict: false)
+    assert result == intersection(a, b, c, d, epsilon: true)
+    assert result == intersection(b, a, c, d, epsilon: true)
+    assert result == intersection(a, b, d, c, epsilon: true)
+    assert result == intersection(b, a, d, c, epsilon: true)
+    assert result == intersection(c, d, a, b, epsilon: true)
+    assert result == intersection(d, c, a, b, epsilon: true)
+    assert result == intersection(c, d, b, a, epsilon: true)
+    assert result == intersection(d, c, b, a, epsilon: true)
     result
   end
 end

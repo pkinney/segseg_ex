@@ -4,7 +4,7 @@
 
 ### Added
 
-- Add `strict` option to intersection that, when set to false, applies
+- Add `epsilon` option to intersection that, when set to true or a number, applies
   an `epsilon` to comparison for vertex checks.
 
 ### Changed
