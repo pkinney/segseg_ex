@@ -1,12 +1,14 @@
 # Change Log
 
-## [1.0.0-rc.1] - 2022-02-26
+## [1.0.0] - 2023-01-09
 
 ### Added
 
 - Add `epsilon` option to intersection that, when set to true or a number, applies
-  an `epsilon` to comparison for vertex checks.
+  a tolerance to comparison for vertex checks to avoid issues from floating point
+  rounding errors.
 
 ### Changed
 
 - Update CI to use Github Actions instead of travis-ci
+- Update dependencies

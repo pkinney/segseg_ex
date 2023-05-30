@@ -1,4 +1,4 @@
-# Segment-Segment Intersection for Elixir
+# Segment-Segment Intersection
 
 ![Build Status](https://github.com/pkinney/segseg_ex/actions/workflows/ci.yaml/badge.svg)
 [![Hex.pm](https://img.shields.io/hexpm/v/seg_seg.svg)](https://hex.pm/packages/seg_seg)

@@ -125,12 +125,11 @@ defmodule SegSeg do
   end
 
   defp calc_eps(a, b, c, d, options) do
-    eps =
-      case Keyword.get(options, :epsilon, false) do
-        false -> 0.0
-        true -> eps_factor(a, b, c, d)
-        num when is_number(num) -> num
-      end
+    case Keyword.get(options, :epsilon, false) do
+      false -> 0.0
+      true -> eps_factor(a, b, c, d)
+      num when is_number(num) -> num
+    end
   end
 
   defp eps_factor({ax, ay}, {bx, by}, {cx, cy}, {dx, dy}) do
