@@ -82,6 +82,7 @@ defmodule SegSeg do
   defp do_intersection(a, _, c, d, _, _) when a == c or a == d, do: {true, :vertex, a}
   defp do_intersection(_, b, c, d, _, _) when b == c or b == d, do: {true, :vertex, b}
 
+  # credo:disable-for-next-line Credo.Check.Refactor.CyclomaticComplexity
   defp do_intersection({ax, ay}, {bx, by}, {cx, cy}, {dx, dy}, denom, eps) do
     s = (ax * (dy - cy) + cx * (ay - dy) + dx * (cy - ay)) / denom
     t = -(ax * (cy - by) + bx * (ay - cy) + cx * (by - ay)) / denom
@@ -142,6 +143,7 @@ defmodule SegSeg do
     ax * (dy - cy) + bx * (cy - dy) + dx * (by - ay) + cx * (ay - by)
   end
 
+  # credo:disable-for-next-line Credo.Check.Refactor.CyclomaticComplexity
   defp envelope_check({ax, ay}, {bx, by}, {cx, cy}, {dx, dy}) do
     cond do
       ax < cx && ax < dx && bx < cx && bx < dx -> false
@@ -152,6 +154,7 @@ defmodule SegSeg do
     end
   end
 
+  # credo:disable-for-next-line Credo.Check.Refactor.CyclomaticComplexity
   defp parallel_int(a, b, c, d) do
     cond do
       !collinear(a, b, c) -> {false, :disjoint, nil}
