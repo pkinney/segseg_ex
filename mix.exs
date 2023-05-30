@@ -2,17 +2,20 @@ defmodule SegSeg.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :seg_seg,
-     version: "0.1.1",
-     elixir: "~> 1.2",
-     description: description(),
-     package: package(),
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     test_coverage: [tool: ExCoveralls],
-     preferred_cli_env: [coveralls: :test],
-     dialyzer: [plt_add_apps: [:poison, :mix]],
-     deps: deps()]
+    [
+      app: :seg_seg,
+      version: "1.0.0",
+      elixir: "~> 1.2",
+      description: description(),
+      package: package(),
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test],
+      dialyzer: [plt_add_apps: [:mix]],
+      deps: deps(),
+      aliases: aliases()
+    ]
   end
 
   def application do
@@ -25,14 +28,14 @@ defmodule SegSeg.Mixfile do
       {:earmark, "~> 1.0", only: :dev},
       {:ex_doc, "~> 0.16", only: :dev},
       {:excoveralls, "~> 0.4", only: :test},
-      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 0.4", only: [:dev], runtime: false}
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.2", only: [:dev], runtime: false}
     ]
   end
 
   defp description do
     """
-    Segment-Segment intersection piont and classification
+    Segment-Segment intersection point and classification
     """
   end
 
@@ -42,6 +45,18 @@ defmodule SegSeg.Mixfile do
       maintainers: ["Powell Kinney"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/pkinney/segseg_ex"}
+    ]
+  end
+
+  defp aliases do
+    [
+      validate: [
+        "clean",
+        "compile --warnings-as-error",
+        "format --check-formatted",
+        "credo",
+        "dialyzer"
+      ]
     ]
   end
 end
