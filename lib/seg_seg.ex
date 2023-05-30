@@ -60,10 +60,16 @@ defmodule SegSeg do
       {true, :vertex, {0, 2}}
       iex> SegSeg.intersection({-1, 0}, {0, 2}, {1, 4}, {-1, 0})
       {true, :edge, nil}
+
+      # This doesn't behave as expected because of floating point error.
+      iex> SegSeg.intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95})
+      {true, :interior, {4.0, 6.999999999999998}}
+
+      # Adding the default epsilon causes this to act more as expected.
       iex> SegSeg.intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, epsilon: true)
       {true, :vertex, {4, 7}}
 
-      # A intersection that fails the specified epsilon
+      # Specifying a very small epsilon shows the floating point error again.
       iex> SegSeg.intersection({4, 3}, {4, 7}, {6.05, 9.05}, {3.95, 6.95}, epsilon: 0.00000000000000000001)
       {true, :interior, {4.0, 6.999999999999998}}
   """
